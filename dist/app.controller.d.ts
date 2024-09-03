@@ -7,4 +7,3 @@ export declare class AppController {
     handleUserCreated(data: createUserEvent): void;
     getNotificationData(payload: any): Promise<{}>;
 }
-`Your Order for xyz product is successfull for price ${payload.orderData.price}. Need any more details check this stripeId: ${payload.user.stripeUserId}`;
