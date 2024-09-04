@@ -36,6 +36,15 @@ let AppService = class AppService {
             throw oError;
         }
     }
+    async fetchInvoiceEmailBody(data) {
+        try {
+            console.log('email sent successfully', data);
+            return await `Your payment is successfull for price ${data.price}`;
+        }
+        catch (oError) {
+            throw oError;
+        }
+    }
 };
 exports.AppService = AppService;
 exports.AppService = AppService = __decorate([

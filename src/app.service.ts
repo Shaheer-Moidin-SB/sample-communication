@@ -31,4 +31,13 @@ export class AppService {
       throw oError;
     }
   }
+
+  async fetchInvoiceEmailBody(data: any) {
+    try {
+      console.log('email sent successfully', data);
+      return await `Your payment is successfull for price ${data.price}`;
+    } catch (oError) {
+      throw oError;
+    }
+  }
 }

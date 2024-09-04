@@ -8,6 +8,19 @@ async function bootstrap() {
         transport: microservices_1.Transport.TCP,
         options: { port: 3001 },
     });
+    const kafkaService = await core_1.NestFactory.createMicroservice(app_module_1.AppModule, {
+        transport: microservices_1.Transport.KAFKA,
+        options: {
+            client: {
+                clientId: 'send',
+                brokers: ['localhost:9092'],
+            },
+            consumer: {
+                groupId: 'send-consumer',
+            },
+        },
+    });
+    await kafkaService.listen();
     await tcpService.listen();
 }
 bootstrap();

@@ -34,6 +34,9 @@ let AppController = class AppController {
             throw new microservices_1.RpcException('Failed to get Notification Data');
         }
     }
+    async fetchInvoiceEmailBody(data) {
+        return await this.appService.fetchInvoiceEmailBody(data);
+    }
 };
 exports.AppController = AppController;
 __decorate([
@@ -43,17 +46,23 @@ __decorate([
     __metadata("design:returntype", String)
 ], AppController.prototype, "getHello", null);
 __decorate([
-    (0, microservices_1.EventPattern)('user_created'),
+    (0, microservices_1.EventPattern)('user_created', microservices_1.Transport.TCP),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_user_event_1.createUserEvent]),
     __metadata("design:returntype", void 0)
 ], AppController.prototype, "handleUserCreated", null);
 __decorate([
-    (0, microservices_1.MessagePattern)({ cmd: 'send_notification' }),
+    (0, microservices_1.MessagePattern)({ cmd: 'send_notification' }, microservices_1.Transport.TCP),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], AppController.prototype, "getNotificationData", null);
+__decorate([
+    (0, microservices_1.EventPattern)('send.invoice', microservices_1.Transport.KAFKA),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], AppController.prototype, "fetchInvoiceEmailBody", null);
 exports.AppController = AppController = __decorate([
     (0, common_1.Controller)(),
     __metadata("design:paramtypes", [app_service_1.AppService])

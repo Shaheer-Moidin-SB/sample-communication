@@ -11,7 +11,23 @@ async function bootstrap() {
     },
   );
 
+  // Kafka Microservice
+  const kafkaService =
+    await NestFactory.createMicroservice<MicroserviceOptions>(AppModule, {
+      transport: Transport.KAFKA,
+      options: {
+        client: {
+          clientId: 'send',
+          brokers: ['localhost:9092'],
+        },
+        consumer: {
+          groupId: 'send-consumer',
+        },
+      },
+    });
+
   //start both the services
+  await kafkaService.listen();
   await tcpService.listen();
 }
 bootstrap();

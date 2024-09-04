@@ -4,6 +4,7 @@ import {
   EventPattern,
   MessagePattern,
   RpcException,
+  Transport,
 } from '@nestjs/microservices';
 import { createUserEvent } from './create-user.event';
 
@@ -16,12 +17,12 @@ export class AppController {
     return this.appService.getHello();
   }
 
-  @EventPattern('user_created')
+  @EventPattern('user_created', Transport.TCP)
   handleUserCreated(data: createUserEvent) {
     this.appService.handleUserCreated(data);
   }
 
-  @MessagePattern({ cmd: 'send_notification' })
+  @MessagePattern({ cmd: 'send_notification' }, Transport.TCP)
   async getNotificationData(payload: any) {
     try {
       console.log('getNotificationData controller says hello');
@@ -30,5 +31,10 @@ export class AppController {
       console.error('Error in getNotificationData:', error);
       throw new RpcException('Failed to get Notification Data');
     }
+  }
+
+  @EventPattern('send.invoice', Transport.KAFKA)
+  async fetchInvoiceEmailBody(data: any) {
+    return await this.appService.fetchInvoiceEmailBody(data);
   }
 }
