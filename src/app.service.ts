@@ -34,8 +34,8 @@ export class AppService {
 
   async fetchInvoiceEmailBody(data: any) {
     try {
-      console.log('email sent successfully', data);
-      return await `Your payment is successfull for price ${data.price}`;
+      console.log('email sent successfully', data.price);
+      return `Your payment is successfull.Email has been sent to you.You will find there your invoice for purchase of ${data.price}`;
     } catch (oError) {
       throw oError;
     }

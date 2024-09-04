@@ -33,7 +33,7 @@ export class AppController {
     }
   }
 
-  @EventPattern('send.invoice', Transport.KAFKA)
+  @MessagePattern('send.invoice', Transport.KAFKA)
   async fetchInvoiceEmailBody(data: any) {
     return await this.appService.fetchInvoiceEmailBody(data);
   }
